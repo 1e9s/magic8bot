@@ -32,10 +32,16 @@ MAGIC_8_BALL = [
 @app.route('/', methods=['POST'])
 def bot():
     data = request.json
+    # print('data =', data)
 
     matin_text = data.get('text', '')
     bot_text = random.choice(MAGIC_8_BALL)
 
-    final_text = "you said " + matin_text + ". " + bot_text
+    if matin_text == '':
+        # first message to play or when text is blank or ''
+        final_text = "hi, go ahead, say something"
+    else:
+        # when we have customer's voice text
+        final_text = "you said " + matin_text + ". " + bot_text
 
     return {'text': final_text}
